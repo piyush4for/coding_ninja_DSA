@@ -1,0 +1,3 @@
+In recursion we use PMI i.e, we should know at n=0 or n=1 then believe we know value at n=k then return what should we get at k+1
+
+For series like fibonaaci or more we should know at 0 and 1 then apply then smalloutput1,2 and then return smalloutput1+smalloutput2
