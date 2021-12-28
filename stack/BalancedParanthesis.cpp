@@ -4,43 +4,43 @@
 #include<stack>
 using namespace std;
 
-bool BalancedParenthesis(string str){
-    stack<int> s;
+bool BalancedParenthesis(string s){
+    stack<int> st;
     char x;
-    for (int i = 0; i < str.length(); i++)
+    for (int i = 0; i < s.length(); i++)
     {
-        if(str[i]=='(' || str[i]=='{' || str[i]=='['){
-            s.push(str[i]);
+        if(s[i]=='(' || s[i]=='{' || s[i]=='['){
+            st.push(s[i]);
             continue;
         }
-        if(s.empty()) return false;
-        switch (str[i])
+        if(st.empty()) return false;
+        switch (s[i])
         {
         case ')':
-            x=s.top();
-            s.pop();
+            x=st.top();
+            st.pop();
             if(x=='{' || x=='[') return false;    
             break;
         case ']':
-            x=s.top();
-            s.pop();
+            x=st.top();
+            st.pop();
             if(x=='{' || x=='(') return false;    
             break;
         case '}':
-            x=s.top();
-            s.pop();
+            x=st.top();
+            st.pop();
             if(x=='(' || x=='[') return false;    
             break;
         
         }
     }
-    return (s.empty());
+    return (st.empty());
 }
 
 int main(){
-    string str;
-    cin>>str;
-    if(BalancedParenthesis(str)) 
+    string s;
+    cin>>s;
+    if(BalancedParenthesis(s)) 
     {
         cout<<"balanced";
     }
