@@ -1,0 +1,8 @@
+here to delete the tree we have two ways(steps done on traversal.cpp)
+1. postorder traversal with deleting its childs(only a function needed). 
+2. we can make a dstructor call in TreeNode.cpp with same code(still had to use delete root).
+
+
+
+2. we are not creating function for deletion we are using recursion and making it very simple to delete all mememry.BY just calling only delete root in main.
+1.we are making seperate function for deletion

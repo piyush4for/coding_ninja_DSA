@@ -52,59 +52,38 @@ void printTreeLevelWise(TreeNode<int>* root){
 	}
 }
 
-int numNodes(TreeNode<int>* root){
-	int ans=1;
+void preorder(TreeNode<int>* root){
+    cout<<root->data<<" ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preorder(root->children[i]);
+    }  
+}
+
+void postorder(TreeNode<int>* root){
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postorder(root->children[i]);
+    }  
+    cout<<root->data<<" ";
+}
+
+void deleteTree(TreeNode<int>* root){
 	for (int i = 0; i < root->children.size(); i++)
 	{
-		ans+=numNodes(root->children[i]);
+		deleteTree(root->children[i]);
 	}
-	return ans;
+	delete root;
 }
-
-int Sum(TreeNode<int>* root){
-    int total=root->data;
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        total+=Sum(root->children[i]);
-    }
-    return total;
-}
-
-int maximum(TreeNode<int>* root){
-
-    int temp = root->data;
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        temp=max(temp,maximum(root->children[i]));
-    }
-    return temp;
-}
-
-int heightOfTree(TreeNode<int>* root){  
-
-    int height=1;
-    if(root->children.size() == 0){
-        return height;
-    }
-
-    int ar[root->children.size()];
-    for (int i = 0; i <root->children.size() ; i++)
-    {
-        ar[i] = heightOfTree(root->children[i]);
-    }
-    sort(ar,ar+(root->children.size()));
-    height+=ar[(root->children.size())-1];
-    return height;
-}
-
 
 int main(){
-	
+	//1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0 
 	TreeNode<int>* root = takeInputLevelWise();
-	printTreeLevelWise(root);
-	cout<< "Total number of nodes: "<< numNodes(root) << endl;
-	cout<< "Total sum of all nodes: " << Sum(root) << endl;
-    cout<< "Maximum data: " << maximum(root) << endl;
-    cout<< "Height: "<< heightOfTree(root) << endl;
+	// printTreeLevelWise(root);
+    preorder(root);
+    postorder(root);
+	
+	deleteTree(root);
 
 }
