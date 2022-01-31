@@ -36,7 +36,7 @@ binaryTreeNode<int>* takeInputLevelWise(){
     if(rootData == -1) return NULL;
 
     binaryTreeNode<int>* root = new binaryTreeNode<int>(rootData);
-
+    
     queue<binaryTreeNode<int>*> pendingNodes;
     pendingNodes.push(root);
     while(pendingNodes.size() != 0){

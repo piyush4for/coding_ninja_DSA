@@ -1,8 +1,11 @@
+//we can use this as takeinput() function not as BST.insert(), there is a seperate BinarySearchTree.h
+//in short this is old file
 #include <iostream>
 #define fst ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #include<algorithm>
 #include<queue>
-#include "binaryTreeNode.h"
+// #include "binaryTreeNode.h"
+#include "BinarySearchTree.h"
 using namespace std;
 
 void printTreeLevelWise(binaryTreeNode<int>* root){
@@ -63,24 +66,21 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
-    }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
-}
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+//8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1 2
 int main(){
-   binaryTreeNode<int>* root = takeInputLevelWise();
-    printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
-    delete root;
+//    binaryTreeNode<int>* root = takeInputLevelWise();
+//     printTreeLevelWise(root);
+//     delete root;
+    BST b;
+    b.insert(10);
+    b.insert(5);    
+    b.insert(20);
+    b.insert(7);
+    b.insert(3);
+    b.insert(15);
+    b.printTree();
+    b.deleteData(10 );
+    b.printTree();
 return 0;
 }

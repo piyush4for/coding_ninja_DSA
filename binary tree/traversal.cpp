@@ -63,24 +63,34 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
+void inorder(binaryTreeNode<int>* root){
     if(root == NULL){
         return ;
     }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
 }
 
+void preorder(binaryTreeNode<int>* root){
+    if(root == NULL) return ;
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
 //1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+//4 type of traversal in binary tree while 
+/*
+    1.Level Order(horizontally)
+    2.PreOrder(node->left->right)
+    3.PostOrder(left->right->node)   
+    4.Inorder(Left->node->right)
+*/
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
-    printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    // inorder(root);
+    preorder(root);
+    
     delete root;
 return 0;
 }

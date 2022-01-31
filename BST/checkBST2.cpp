@@ -1,6 +1,7 @@
 #include <iostream>
 #define fst ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #include<algorithm>
+#include<limits.h>
 #include<queue>
 #include "binaryTreeNode.h"
 using namespace std;
@@ -63,24 +64,39 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
+class IsBSTReturn{
+    public:
+    bool isBST;
+    int minimum;
+    int maximum;
+};
+
+IsBSTReturn isBST2(binaryTreeNode<int>* root){
     if(root == NULL){
-        return ;
+        IsBSTReturn output;
+        output.isBST = true;
+        output.minimum = INT_MAX;
+        output.maximum = INT_MIN;
+        return output;
     }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+    IsBSTReturn leftOutput = isBST2(root->left);
+    IsBSTReturn rightOutput = isBST2(root->right);
+    int minimum = min(root->data , min(leftOutput.minimum, rightOutput.minimum));
+    int maximum = max(root->data , max(leftOutput.maximum, rightOutput.maximum));
+    bool isBSTFinal = (root->data > leftOutput.maximum) && (root->data <= rightOutput.minimum) &&
+        leftOutput.isBST && rightOutput.isBST;
+    IsBSTReturn output;
+    output.minimum = minimum;
+    output.maximum = maximum;
+    output.isBST = isBSTFinal;
+    return output;
 }
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+//8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1 2
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
     printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    cout<<"is it bst: "<<isBST2(root).isBST;
     delete root;
 return 0;
 }

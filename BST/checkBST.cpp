@@ -1,6 +1,7 @@
 #include <iostream>
 #define fst ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #include<algorithm>
+#include<limits.h>
 #include<queue>
 #include "binaryTreeNode.h"
 using namespace std;
@@ -63,24 +64,30 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
-    }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+int maximum(binaryTreeNode<int>* root){
+    if(root == NULL) return INT_MAX;
+    return max(root->data , max(maximum(root->right),maximum(root->left)));
+}
+int minimum(binaryTreeNode<int>* root){
+    if(root == NULL) return INT_MAX;
+    return min(root->data , min(minimum(root->right),minimum(root->left)));
 }
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+bool isBST(binaryTreeNode<int>* root){
+
+    if(root == NULL) return true;
+    int leftMax = maximum(root->left);
+    int rightMin = minimum(root->right);
+    bool output = (root->data>leftMax) && (root->data<=rightMin) && isBST(root->left) && isBST(root->right);
+
+    return output;
+}
+
+//8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1 2
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
     printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    cout<<"is it bst: "<<isBST(root);
     delete root;
 return 0;
 }

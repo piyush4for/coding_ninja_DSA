@@ -63,24 +63,20 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
-    }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+void searchk1k2(binaryTreeNode<int>* root, int k1,int k2){
+    if(root == NULL) return ;
+    if(root->data >= k1 & root->data<=k2) cout<<root->data<<" ";
+    if(root->data>k1) searchk1k2(root->left,k1,k2);
+    if(root->data<k2) searchk1k2(root->right,k1,k2);
 }
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+//8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1 6 10
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
     printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    int k1,k2;
+    cin>>k1>>k2;
+    searchk1k2(root,k1,k2);
     delete root;
 return 0;
 }

@@ -63,24 +63,37 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
+
+pair<int,int> minmax(binaryTreeNode<int>* root){
+    if(root->left == NULL && root->right == NULL){
+        pair<int,int> p;
+        p.first = p.second = root->data;
+        return p;
     }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+    pair<int,int> p;
+    p.first = p.second = root->data;
+
+    if(root->left){
+        pair<int,int> smalloutput = minmax(root->left);
+        p.first = min(p.first,smalloutput.first);
+        p.second = max(p.second,smalloutput.second);
+    }
+    if(root->right){
+        pair<int,int> smalloutput = minmax(root->right);
+        p.first = min(p.first,smalloutput.first);
+        p.second = max(p.second,smalloutput.second);
+    }
+    return p;
 }
 
 //1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
     printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    // cout<<diameter(root);
+    pair<int, int> p = minmax(root);
+    cout<<"minimum: "<<p.first<<endl;
+    cout<<"maximum: "<<p.second<<endl;
     delete root;
 return 0;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #define fst ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #include<algorithm>
+#include<limits.h>
 #include<queue>
 #include "binaryTreeNode.h"
 using namespace std;
@@ -63,24 +64,35 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
-    }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+binaryTreeNode<int>* MakeBST(int ar[],int si, int ei){
+    if(si>ei) return NULL;
+    int mid = (si+ei)/2;
+    binaryTreeNode<int>* root = new binaryTreeNode<int>(ar[mid]);
+    root->left = MakeBST(ar,si,mid-1);
+    root->right = MakeBST(ar,mid+1,ei);
+    
+    return root;
 }
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+void PreOrder(binaryTreeNode<int>* root){
+    if(root == NULL) return ;
+    cout<<root->data;
+    PreOrder(root->left);
+    PreOrder(root->right);
+}
+//7 1 2 3 4 5 6 7
 int main(){
-   binaryTreeNode<int>* root = takeInputLevelWise();
-    printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+   int count;
+   cin>>count;
+   int ar[count];
+   for (int i = 0; i < count; i++)
+   {
+       cin>>ar[i];
+   }
+   binaryTreeNode<int>* root = MakeBST(ar,0,count-1);
+    // printTreeLevelWise(root);
+    PreOrder(root);
     delete root;
+
 return 0;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #define fst ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #include<algorithm>
+#include<limits.h>
 #include<queue>
 #include "binaryTreeNode.h"
 using namespace std;
@@ -63,24 +64,21 @@ binaryTreeNode<int>* takeInputLevelWise(){
     return root;
 }
 
-void mirror(binaryTreeNode<int>* root){
-    if(root == NULL){
-        return ;
-    }
-    binaryTreeNode<int>* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    mirror(root->left);
-    mirror(root->right);
+bool isBST3(binaryTreeNode<int>* root, int min=INT_MIN, int max = INT_MAX){
+   if(root == NULL) return true;
+   if(root->data > max || root->data < min){
+       return false;
+   }
+   bool leftOutput = isBST3(root->left,min,root->data-1);
+   bool rightOutput = isBST3(root->right,root->data,max);
+   return leftOutput && rightOutput;
 }
 
-//1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
+//8 5 10 2 6 -1 -1 -1 -1 -1 7 -1 -1 2
 int main(){
    binaryTreeNode<int>* root = takeInputLevelWise();
     printTreeLevelWise(root);
-    cout<<endl<<endl;
-    mirror(root);
-    printTreeLevelWise(root);
+    cout<<"is it bst: "<<isBST3(root);
     delete root;
 return 0;
 }
