@@ -1,0 +1,10 @@
+heap is data structure that is CBT(complete binary tree)(i.e, only last level left to right can be empty in binary tree)
+priority queue can be implemeted using heap becoz it would be faster to getminmax or removeMinMax
+
+
+we are storing CBT as array for Heap.If asked why used as array not pointer binary tree tell becoz there would be messy pointers and extra storage
+
+Min-Heap = it should be CBT and root value is always shorter than child
+Max-Heap = it should be CBT and root value is always larger than child
+
+NOTE: in short heap is a data structure for finding and removing min max of numbers fastest .
