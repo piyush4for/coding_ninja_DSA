@@ -1,0 +1,4 @@
+if answer is greater than int , then we can use
+ ans%10^9 + 7
+
+and my compiler is shitty as here INT_MAX and LONG_MAX are same so use LONG LONG datatype for moduling with big integer
